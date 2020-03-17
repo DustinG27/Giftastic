@@ -48,6 +48,8 @@ $(document).ready(function() {
 
   $("#submitPress").on("click", function(event) {
     event.preventDefault();
+    
+    console.log(submitPress);
 
     var character = $("#form")
       .val()
@@ -77,4 +79,24 @@ $(document).ready(function() {
       }
       displayBtn();
     
+
+
+
+
+
+      // create function to animate and still gif
+      $("#gifArea").on("click", ".gif", function(event) {
+          event.preventDefault();
+
+          var state = $(this).attr("data-state");
+
+          if (state === "still") {
+              $(this).attr("src", $(this).attr("data-animate"));
+              $(this).attr("data-state", "animate");
+          } else {
+              $(this).attr("src", $(this).attr("data-still"));
+              $(this).attr("data-state", "still");
+          }
+      })
 });
+
