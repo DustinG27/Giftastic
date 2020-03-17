@@ -3,9 +3,28 @@ $(document).ready(function() {
 
   var topics = ["Rick Sanchez", "Morty", "Mr.Poopybutthole"];
 
+  // log and display user input and push into the array
+
+  $("#submitPress").on("click", function(event) {
+    event.preventDefault();
+
+    // console.log($("#user-input").val());
+
+    //  var character = $("#form")
+    //   .val()
+    //   .trim();
+
+    var clickInput = $("#user-input").val();
+    topics.push(clickInput);
+
+    displayBtn();
+
+    console.log(topics);
+  });
+
   // connect to gify through ajax
 
-  $("#submitPress").on("click", "btn", function() {
+  function showGif() {
     var dataName = $(this).attr("data-name");
 
     var queryURL =
@@ -13,7 +32,7 @@ $(document).ready(function() {
       dataName +
       "&api_key=bAO2QEf1si5vORdg2P2ONcJAe9QMbxT9&limit=10";
 
-      console.log(dataName);
+    console.log(dataName);
 
     $.ajax({
       url: queryURL,
@@ -31,6 +50,7 @@ $(document).ready(function() {
         var rickImage = $("<img>");
 
         rickImage.attr("src", results[i].images.fixed_height.url);
+        rickImage.addClass("image");
 
         // Appending the paragraph and image tag to the animalDiv
         rickDiv.append(p);
@@ -42,61 +62,40 @@ $(document).ready(function() {
     });
 
     console.log(queryURL);
+  }
+
+  //function to create the buttons from the array
+
+  function displayBtn() {
+    $("#buttonArea").empty();
+
+    for (var i = 0; i < topics.length; i++) {
+      var a = $(`<button>`);
+      a.addClass("btn");
+      a.addClass("gif-btn");
+      a.addClass("btn-default");
+      a.attr("data-name", topics[i]);
+      a.text(topics[i]);
+      $("#buttonArea").append(a);
+    }
+  }
+  displayBtn();
+
+  $(document).on("click", ".gif-btn", showGif);
+
+  $(document).on("click", ".image", function() {
+    // create function to animate and still gif
+
+    var state = $(this).attr("data-state");
+
+    console.log("hello");
+
+    if (state === "still") {
+      $(this).attr("src", $(this).data("animate"));
+      $(this).attr("data-state", "animate");
+    } else {
+      $(this).attr("src", $(this).data("still"));
+      $(this).attr("data-state", "still");
+    }
   });
-
-  // log and display user input and push into the array
-
-  $("#submitPress").on("click", function(event) {
-    event.preventDefault();
-    
-    console.log(submitPress);
-
-    var character = $("#form")
-      .val()
-      .trim();
-
-    topics.push(character);
-    $("#user-input").val("");
-
-    displayBtn();
-
-    console.log(topics);
-  });
-
-
-    //function to create the buttons from the array
-
-    function displayBtn() {
-        $("#buttonArea").empty();
-    
-        for (var i = 0; i < topics.length; i++) {
-          var a = $("<button>");
-          a.addClass("btn btn-default");
-          a.attr("data-name", topics[i]);
-          a.text(topics[i]);
-          $("#buttonArea").append(a);
-        }
-      }
-      displayBtn();
-    
-
-
-
-
-
-      // create function to animate and still gif
-      $("#gifArea").on("click", ".gif", function(event) {
-          event.preventDefault();
-
-          var state = $(this).attr("data-state");
-
-          if (state === "still") {
-              $(this).attr("src", $(this).attr("data-animate"));
-              $(this).attr("data-state", "animate");
-          } else {
-              $(this).attr("src", $(this).attr("data-still"));
-              $(this).attr("data-state", "still");
-          }
-      })
 });
-
