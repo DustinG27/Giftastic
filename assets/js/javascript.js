@@ -7,12 +7,8 @@ $(document).ready(function() {
 
   $("#submitPress").on("click", function(event) {
     event.preventDefault();
-
+    
     // console.log($("#user-input").val());
-
-    //  var character = $("#form")
-    //   .val()
-    //   .trim();
 
     var clickInput = $("#user-input").val();
     topics.push(clickInput);
@@ -50,6 +46,7 @@ $(document).ready(function() {
         var rickImage = $("<img>");
 
         rickImage.attr("src", results[i].images.fixed_height.url);
+        rickImage.attr("data-state", "still");
         rickImage.addClass("image");
 
         // Appending the paragraph and image tag to the animalDiv
@@ -67,7 +64,7 @@ $(document).ready(function() {
   //function to create the buttons from the array
 
   function displayBtn() {
-    $("#buttonArea").empty();
+   $("#buttonArea").empty();
 
     for (var i = 0; i < topics.length; i++) {
       var a = $(`<button>`);
@@ -81,10 +78,13 @@ $(document).ready(function() {
   }
   displayBtn();
 
+  // when user clicks will load gifs
   $(document).on("click", ".gif-btn", showGif);
 
+
+  // create function to animate and still gif
   $(document).on("click", ".image", function() {
-    // create function to animate and still gif
+  
 
     var state = $(this).attr("data-state");
 

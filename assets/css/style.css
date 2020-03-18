@@ -1,0 +1,31 @@
+
+.logo img {
+    max-width: 100%;
+    height: auto;
+    width: auto;
+    margin:auto;
+    display:block
+}
+
+.btnRow {
+    float: left;
+    border:  5px solid yellow;
+    max-width: 40%;
+    padding: 20px;
+    margin: auto;
+    margin-top: 10px;
+
+} 
+
+#form {
+    float: right;
+    border:  5px solid yellow;
+    max-width: 40%;
+    padding: 20px;
+    margin: auto;
+    margin-top: 10px;
+}
+
+#user-input {
+    color: black;
+}
